@@ -6,58 +6,60 @@
   <title>IA Technology S.A.S</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Fuentes Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+  </style>
 </head>
+
 <body class="bg-white text-gray-800 font-sans">
 
   <!-- Hero -->
   <header class="bg-[#00324D] text-white py-16 px-4 text-center">
     <img src="logo.png" alt="IA Technology" class="mx-auto mb-4 w-32">
-    <h1 class="text-3xl md:text-5xl font-bold mb-4">IA Technology S.A.S</h1>
+    <h1 class="text-3xl md:text-5xl font-bold mb-4 font-cinzel tracking-wide uppercase">IA Technology S.A.S</h1>
     <a href="#productos" class="bg-[#FFA500] text-white py-3 px-6 rounded shadow-lg hover:bg-orange-600 transition">Ver productos</a>
   </header>
 
-<!-- Productos -->
-<section id="productos" class="py-16 px-4 max-w-6xl mx-auto">
-  <h2 class="text-3xl font-bold text-center mb-10">Productos Destacados</h2>
-  <div class="grid md:grid-cols-2 gap-10">
+  <!-- Productos -->
+  <section id="productos" class="py-16 px-4 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10">Productos Destacados</h2>
+    <div class="grid md:grid-cols-2 gap-10">
 
-    <!-- Producto 1 -->
-    <div class="border p-6 rounded shadow hover:shadow-lg transition">
-      <img src="tli-solar-2025.jpg" alt="TLI-SOLAR-2025" class="w-full h-48 object-cover rounded mb-4">
-      <h3 class="text-xl font-bold mb-2">TLI-SOLAR-2025</h3>
-      <p class="mb-4">Trampa solar con descarga eléctrica. Funciona sin red eléctrica. Ideal para cultivos y zonas rurales.</p>
-      <ul class="mb-4 list-disc list-inside">
-        <li>Panel solar 60W</li>
-        <li>Autonomía: hasta 17 horas</li>
-        <li>Voltaje descarga: 600-1000VDC</li>
-      </ul>
-      <a href="#contacto" class="text-blue-700 underline">Solicitar información</a>
+      <!-- Producto 1 -->
+      <div class="border p-6 rounded shadow hover:shadow-lg transition">
+        <img src="tli-solar-2025.jpg" alt="TLI-SOLAR-2025" class="w-full h-48 object-cover rounded mb-4">
+        <h3 class="text-xl font-bold mb-2">TLI-SOLAR-2025</h3>
+        <p class="mb-4">Trampa solar con descarga eléctrica. Funciona sin red eléctrica. Ideal para cultivos y zonas rurales.</p>
+        <ul class="mb-4 list-disc list-inside">
+          <li>Panel solar 60W</li>
+          <li>Autonomía: hasta 17 horas</li>
+          <li>Voltaje descarga: 600-1000VDC</li>
+        </ul>
+        <a href="#contacto" class="text-blue-700 underline">Solicitar información</a>
+      </div>
+
+      <!-- Producto 2: SEMAFORO CABLE VÍA -->
+      <div class="border p-6 rounded shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-bold mb-2">SEMAFORO CABLE VÍA</h3>
+        <p class="mb-4">Alarma para apertura y cerrado de cable vía para transporte entre fincas.</p>
+        <ul class="mb-4 list-disc list-inside">
+          <li>Panel solar de 7W</li>
+          <li>Autonomía 24/7</li>
+          <li>Voltaje nominal: 12V</li>
+        </ul>
+        <video controls class="w-full h-64 rounded shadow border">
+          <source src="semaforo-cablevia.mp4" type="video/mp4">
+          Tu navegador no soporta el video.
+        </video>
+        <a href="#contacto" class="mt-4 inline-block text-blue-700 underline">Solicitar información</a>
+      </div>
+
     </div>
-
-  <!-- Producto 2 NUEVO: SEMAFORO CABLE VÍA -->
-<div class="border p-6 rounded shadow hover:shadow-lg transition">
-  <h3 class="text-xl font-bold mb-2">SEMAFORO CABLE VÍA</h3>
-  <p class="mb-4">Alarma para apertura y cerrado de cable vía para transporte entre fincas.</p>
-  <ul class="mb-4 list-disc list-inside">
-    <li>Panel solar de 7W</li>
-    <li>Autonomía 24/7</li>
-    <li>Voltaje nominal: 12V</li>
-  </ul>
-
-  <!-- Video desde el repositorio -->
-  <video controls class="w-full h-64 rounded shadow border">
-    <source src="semaforo-cablevia.mp4" type="video/mp4">
-    Tu navegador no soporta el video.
-  </video>
-
-  <a href="#contacto" class="mt-4 inline-block text-blue-700 underline">Solicitar información</a>
-</div>
-
-
-
-  </div>
-</section>
-
+  </section>
 
   <!-- Contacto -->
   <section id="contacto" class="bg-gray-100 py-16 px-4">
@@ -76,25 +78,21 @@
         <strong>Dirección:</strong> Cl. 8 #217, Facatativá, Cundinamarca
       </p>
     </div>
+
     <!-- Responsables -->
-<section id="equipo" class="py-16 px-4 bg-white max-w-4xl mx-auto">
-  <h2 class="text-3xl font-bold text-center mb-10">Responsables </h2>
-  <div class="grid md:grid-cols-2 gap-8 text-center">
-
-    <!-- Ing. Nicolás Palacios -->
-    <div class="p-6 border rounded shadow hover:shadow-md transition">
-      <h3 class="text-xl font-semibold mb-2">Ing. Nicolás Palacios</h3>
-      <p class="text-gray-600">Responsable de producto y desarrollo</p>
-    </div>
-
-    <!-- Ing. Juan Bello -->
-    <div class="p-6 border rounded shadow hover:shadow-md transition">
-      <h3 class="text-xl font-semibold mb-2">Ing. Juan Bello</h3>
-      <p class="text-gray-600">Responsable de diseño e innovación</p>
-    </div>
-
-  </div>
-</section>
+    <section id="equipo" class="py-16 px-4 bg-white max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-10">Responsables</h2>
+      <div class="grid md:grid-cols-2 gap-8 text-center">
+        <div class="p-6 border rounded shadow hover:shadow-md transition">
+          <h3 class="text-xl font-semibold mb-2 font-playfair">Ing. Nicolás Palacios</h3>
+          <p class="text-gray-600">Responsable de producto y desarrollo</p>
+        </div>
+        <div class="p-6 border rounded shadow hover:shadow-md transition">
+          <h3 class="text-xl font-semibold mb-2 font-playfair">Ing. Juan Bello</h3>
+          <p class="text-gray-600">Responsable de diseño e innovación</p>
+        </div>
+      </div>
+    </section>
 
     <!-- Mapa -->
     <div class="mt-10 max-w-4xl mx-auto">
@@ -113,3 +111,4 @@
 
 </body>
 </html>
+

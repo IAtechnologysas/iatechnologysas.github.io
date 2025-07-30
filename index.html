@@ -1,4 +1,9 @@
+from zipfile import ZipFile
+from PIL import Image
+import io
 
+# Nuevo index.html con estructura moderna usando TailwindCSS
+index_html_tailwind = """
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -60,3 +65,25 @@
 
 </body>
 </html>
+"""
+
+# Procesar logo original a PNG
+input_image_path = "/mnt/data/Imagen de WhatsApp 2025-07-29 a las 20.39.37_1344adf4.jpg"
+output_image_bytes = io.BytesIO()
+with Image.open(input_image_path) as img:
+    img.thumbnail((300, 300))
+    img.save(output_image_bytes, format='PNG')
+logo_data = output_image_bytes.getvalue()
+
+# Crear archivo ZIP con los nuevos archivos
+zip_buffer = io.BytesIO()
+with ZipFile(zip_buffer, 'w') as zip_file:
+    zip_file.writestr("index.html", index_html_tailwind)
+    zip_file.writestr("logo.png", logo_data)
+
+zip_buffer.seek(0)
+zip_path = "/mnt/data/iatechnology_tailwind.zip"
+with open(zip_path, "wb") as f:
+    f.write(zip_buffer.read())
+
+zip_path

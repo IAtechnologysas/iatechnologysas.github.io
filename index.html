@@ -2,53 +2,61 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IA Technology S.A.S</title>
-  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <img src="logo.png" alt="Logo de IA Technology S.A.S" class="logo">
-    <h1>IA Technology S.A.S</h1>
-    <nav>
-      <a href="#brochure">Brochure</a>
-      <a href="#contacto">Contacto</a>
-      <a href="#ubicacion">Ubicación</a>
-    </nav>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Hero -->
+  <header class="bg-[#00324D] text-white py-16 px-4 text-center">
+    <img src="logo.png" alt="IA Technology" class="mx-auto mb-4 w-32">
+    <h1 class="text-3xl md:text-5xl font-bold mb-4">Tecnología solar para el control ecológico de insectos</h1>
+    <a href="#productos" class="bg-[#FFA500] text-white py-3 px-6 rounded shadow-lg hover:bg-orange-600 transition">Ver productos</a>
   </header>
 
-  <main>
-    <section id="brochure">
-      <h2>Trampas solares con descarga eléctrica</h2>
-      <p>Dispositivo autónomo para el control de insectos voladores mediante luz UV y descarga eléctrica. Ideal para cultivos, zonas rurales y exteriores. Alimentado por energía solar.</p>
-      <ul>
-        <li>Panel solar monocristalino 60W</li>
-        <li>Batería AGM 12-28V con hasta 17h de autonomía</li>
-        <li>Resistencia IP54 - Uso exterior</li>
-        <li>Encendido automático al anochecer</li>
-      </ul>
-    </section>
+  <!-- Productos -->
+  <section id="productos" class="py-16 px-4 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10">Productos Destacados</h2>
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="border p-6 rounded shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-bold mb-2">TLI-SOLAR-2025</h3>
+        <p class="mb-4">Trampa solar con descarga eléctrica. Funciona sin red eléctrica. Ideal para cultivos y zonas rurales.</p>
+        <ul class="mb-4 list-disc list-inside">
+          <li>Panel solar 60W</li>
+          <li>Autonomía: hasta 17 horas</li>
+          <li>Voltaje descarga: 600-1000VDC</li>
+        </ul>
+        <a href="#contacto" class="text-blue-700 underline">Solicitar información</a>
+      </div>
+      <div class="border p-6 rounded shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-bold mb-2">LUMINEX TLI-2025</h3>
+        <p class="mb-4">Luz UV solar para atracción de insectos. Ideal para ambientes húmedos, rurales o agrícolas.</p>
+        <ul class="mb-4 list-disc list-inside">
+          <li>Encendido automático</li>
+          <li>100% solar, sin químicos</li>
+          <li>Diseño resistente IP54</li>
+        </ul>
+        <a href="#contacto" class="text-blue-700 underline">Solicitar información</a>
+      </div>
+    </div>
+  </section>
 
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <p><strong>Email:</strong> iatechnology2025@gmail.com</p>
-      <p><strong>Teléfono:</strong> (+57) 301 393 7376</p>
-      <p><strong>Responsable:</strong> Nicolás Palacios</p>
-    </section>
+  <!-- Contacto -->
+  <section id="contacto" class="bg-gray-100 py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6">Contacto</h2>
+      <p class="mb-2"><strong>Email:</strong> iatechnology2025@gmail.com</p>
+      <p class="mb-2"><strong>WhatsApp:</strong> (+57) 301 393 7376</p>
+      <p class="mb-2"><strong>Dirección:</strong> Cl. 8 #217, Facatativá, Cundinamarca</p>
+    </div>
+  </section>
 
-    <section id="ubicacion">
-      <h2>Ubicación</h2>
-      <p>Cl. 8 #217, Facatativá, Cundinamarca</p>
-      <iframe
-        src="https://www.google.com/maps?q=Cl.+8+%23217,+Facatativá,+Cundinamarca,+Colombia&output=embed"
-        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-      </iframe>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 IA Technology S.A.S - Todos los derechos reservados.</p>
+  <!-- Footer -->
+  <footer class="bg-[#00324D] text-white py-6 text-center">
+    <p>&copy; 2025 IA Technology S.A.S – Innovación</p>
   </footer>
+
 </body>
 </html>

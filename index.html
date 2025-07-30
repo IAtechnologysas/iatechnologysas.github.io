@@ -191,6 +191,36 @@
 }
 </style>
 
+<!-- Botón "Menú" -->
+<button id="menuBtn"
+  class="fixed top-4 left-4 z-50 bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-gray-700 transition">
+  Menú
+</button>
+
+<!-- Menú lateral (oculto por defecto) -->
+<aside id="sideMenu"
+  class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg border-r z-40 transform -translate-x-full transition-transform duration-300">
+  <div class="p-4 border-b text-lg font-bold text-gray-700">
+    Categorías
+    <button id="closeMenu" class="float-right text-gray-500 hover:text-red-600">&times;</button>
+  </div>
+  <div class="p-4">
+    <!-- Buscador -->
+    <input type="text" placeholder="Buscar productos"
+      class="w-full px-3 py-2 mb-4 text-sm border rounded focus:outline-none focus:ring focus:ring-blue-300" />
+
+    <!-- Lista de productos -->
+    <ul class="space-y-3 font-medium text-gray-800">
+      <li class="hover:text-blue-700 cursor-pointer">DVR</li>
+      <li class="hover:text-blue-700 cursor-pointer">Cámaras IP</li>
+      <li class="hover:text-blue-700 cursor-pointer">Cámaras Análogas</li>
+      <li class="hover:text-blue-700 cursor-pointer">UPS</li>
+      <li class="hover:text-blue-700 cursor-pointer">Teclados y Mouses</li>
+      <li class="hover:text-blue-700 cursor-pointer">Audífonos</li>
+      <li class="hover:text-blue-700 cursor-pointer">Otros Servicios</li>
+    </ul>
+  </div>
+</aside>
 
 
 </body>

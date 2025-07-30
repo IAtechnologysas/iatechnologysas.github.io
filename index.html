@@ -149,8 +149,16 @@
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-8 h-8">
 </a>
 
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/573013937376" 
+   class="fixed bottom-6 right-6 z-50 bg-green-500 rounded-full p-3 shadow-lg hover:bg-green-600 transition"
+   target="_blank"
+   aria-label="Chatea por WhatsApp">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-8 h-8">
+</a>
+
 <!-- Mensaje flotante con logo -->
-<div class="fixed bottom-24 right-6 bg-white rounded-lg shadow-lg p-4 w-72 z-40 text-sm text-gray-800">
+<div id="wa-popup" class="fixed bottom-24 right-6 bg-white rounded-lg shadow-lg p-4 w-72 z-40 text-sm text-gray-800 animate-fade-in">
   <div class="flex justify-between items-start">
     <div class="flex items-start gap-2">
       <img src="logo.png" alt="Logo IA Technology" class="w-10 h-10 object-contain">
@@ -159,10 +167,29 @@
         <p class="text-xs text-gray-500">Disponible</p>
       </div>
     </div>
-    <button onclick="this.parentElement.parentElement.style.display='none';" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    <button onclick="document.getElementById('wa-popup').style.display='none';" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
   </div>
   <div class="mt-2">Hola, un gusto atenderte.</div>
 </div>
+
+<!-- Script para cerrar el mensaje después de 5 segundos -->
+<script>
+  setTimeout(() => {
+    const popup = document.getElementById('wa-popup');
+    if (popup) popup.style.display = 'none';
+  }, 5000);
+</script>
+
+<!-- Animación opcional (tailwind plugin necesario si quieres usar animate-fade-in) -->
+<style>
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+</style>
 
 
 

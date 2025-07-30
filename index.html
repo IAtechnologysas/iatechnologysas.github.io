@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IA Technology S.A.S</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-white text-gray-800 font-sans">
 
@@ -47,13 +47,24 @@
   <section id="contacto" class="bg-gray-100 py-16 px-4">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-3xl font-bold mb-6">Contacto</h2>
-      <p class="mb-2"><strong>Email:</strong> iatechnology2025@gmail.com</p>
-      <p class="mb-2"><strong>WhatsApp:</strong> (+57) 301 393 7376</p>
-      <p class="mb-2"><strong>Dirección:</strong> Cl. 8 #217, Facatativá, Cundinamarca</p>
+      <p class="mb-4 flex justify-center items-center gap-2">
+        <i class="fas fa-envelope text-[#00324D]"></i>
+        <strong>Email:</strong> iatechnology2025@gmail.com
+      </p>
+      <p class="mb-4 flex justify-center items-center gap-2">
+        <i class="fab fa-whatsapp text-green-500"></i>
+        <strong>WhatsApp:</strong> <a class="text-blue-700 underline" href="https://wa.me/573013937376" target="_blank">(+57) 301 393 7376</a>
+      </p>
+      <p class="mb-4 flex justify-center items-center gap-2">
+        <i class="fas fa-map-marker-alt text-red-600"></i>
+        <strong>Dirección:</strong> Cl. 8 #217, Facatativá, Cundinamarca
+      </p>
     </div>
-    <div class="mt-8 max-w-4xl mx-auto">
+
+    <!-- Mapa -->
+    <div class="mt-10 max-w-4xl mx-auto">
       <iframe
-        class="w-full h-96 rounded shadow"
+        class="w-full h-96 rounded-lg shadow-lg border"
         src="https://www.google.com/maps?q=Cl.+8+%23217,+Facatativá,+Cundinamarca,+Colombia&output=embed"
         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
       </iframe>
@@ -61,8 +72,8 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-[#00324D] text-white py-6 text-center">
-    <p>&copy; 2025 IA Technology S.A.S – Innovación</p>
+  <footer class="bg-[#00324D] text-white py-6 text-center text-sm">
+    <p>&copy; 2025 <strong>IA Technology S.A.S</strong> – Innovación con propósito.</p>
   </footer>
 
 </body>

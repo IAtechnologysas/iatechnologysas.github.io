@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DVR - IA Technology</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+<header class="bg-black text-white py-6 text-center">
+    <img src="logo.jpg" alt="IA Technology Logo" class="mx-auto mb-2 w-32 h-auto">
+  <h1 class="text-3xl font-bold">DVR</h1>
+  <a href="index.html" class="text-blue-200 underline text-sm">Volver al inicio</a>
+</header>
+
+<section class="py-12 px-4 max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+  <!-- Producto 1 -->
+  <div class="border p-6 rounded shadow hover:shadow-lg transition">
+    <img src="dvr1.jpg" alt="DVR 1" class="w-full h-48 object-cover mb-4 rounded">
+    <h2 class="text-xl font-bold mb-2">XVR 16 CH + 1CH IP </h2>
+    <p class="mb-4">GRABACION HASTA 1080N HDMI 1 E/S RCA 1 SATA H.265 + AI CODING SMD PLUS.</p>
+    <a href="index.html#contacto" class="text-blue-700 underline">Solicitar información</a>
+  </div>
+
+  <!-- Producto 2 -->
+  <div class="border p-6 rounded shadow hover:shadow-lg transition">
+    <img src="dvr1.jpg" alt="DVR 2" class="w-full h-48 object-cover mb-4 rounded">
+    <h2 class="text-xl font-bold mb-2">XVR 8CH</h2>
+    <p class="mb-4">RECONOCIMIENTO FACIAL</p>
+    <a href="index.html#contacto" class="text-blue-700 underline">Solicitar información</a>
+  </div>
+
+  <!-- Producto 3 -->
+  <div class="border p-6 rounded shadow hover:shadow-lg transition">
+    <img src="dvr1.jpg" alt="DVR 3" class="w-full h-48 object-cover mb-4 rounded">
+    <h2 class="text-xl font-bold mb-2">XVR 8CH + 4CH IP</h2>
+    <p class="mb-4">GRABACION HASTA 1080N HDMI 1 E/S RCA 1 SATA H.265+ AI CODING SMD PLUS</p>
+    <a href="index.html#contacto" class="text-blue-700 underline">Solicitar información</a>
+  </div>
+
+  <!-- Producto 4 -->
+  <div class="border p-6 rounded shadow hover:shadow-lg transition">
+    <img src="dvr1.jpg" alt="DVR 4" class="w-full h-48 object-cover mb-4 rounded">
+    <h2 class="text-xl font-bold mb-2">XVR 4CH</h2>
+    <p class="mb-4">RECONOCIMIENTO FACIAL O DOS ENTRADAS IP</p>
+    <a href="index.html#contacto" class="text-blue-700 underline">Solicitar información</a>
+  </div>
+  <!-- Producto 5 -->
+  <div class="border p-6 rounded shadow hover:shadow-lg transition">
+    <img src="dvr1.jpg" alt="DVR 4" class="w-full h-48 object-cover mb-4 rounded">
+    <h2 class="text-xl font-bold mb-2">XVR 4CH + 1CH IP</h2>
+    <p class="mb-4">GRABACION HASTA 1080N HDMI 1 E/S RCA 1 SATA H.265+ AI CODING SMD PLUS.</p>
+    <a href="index.html#contacto" class="text-blue-700 underline">Solicitar información</a>
+  </div>
+</section>
+
+<footer class="bg-[#00324D] text-white py-6 text-center text-sm">
+  <p>&copy; 2025 IA Technology S.A.S – Innovación con propósito.</p>
+</footer>
+<!-- Botón "Menú" -->
+<button id="menuBtn"
+  class="fixed top-4 left-4 z-50 bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-gray-700 transition">
+  Menú
+</button>
+
+<!-- Menú lateral -->
+<aside id="sideMenu"
+  class="fixed top-10 left-0 h-full w-64 bg-white shadow-lg border-r z-40 transform -translate-x-full transition-transform duration-300">
+  <div class="p-4 border-b text-lg font-bold text-gray-700">
+    Categorías
+    <button id="closeMenu" class="float-right text-gray-500 hover:text-red-600">&times;</button>
+  </div>
+  <div class="p-4">
+    <!-- Buscador -->
+    <input type="text" placeholder="Buscar productos"
+      class="w-full px-3 py-2 mb-4 text-sm border rounded focus:outline-none focus:ring focus:ring-blue-300" />
+
+    <!-- Lista de productos -->
+    <ul class="space-y-3 font-medium text-gray-800">
+      <li><a href="dvr.html" class="hover:text-blue-700">DVR</a></li>
+      <li><a href="camaras-ip.html" class="hover:text-blue-700">Cámaras </a></li>
+      <li><a href="ups.html" class="hover:text-blue-700">UPS</a></li>
+      <li><a href="teclados-mouses.html" class="hover:text-blue-700">Teclados y Mouses</a></li>
+      <li><a href="audifonos.html" class="hover:text-blue-700">Audífonos</a></li>
+      <li><a href="otros.html" class="hover:text-blue-700">Otros Servicios</a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- script del menú lateral -->
+<script>
+  const menuBtn = document.getElementById("menuBtn");
+  const sideMenu = document.getElementById("sideMenu");
+  const closeMenu = document.getElementById("closeMenu");
+
+  menuBtn.addEventListener("click", () => {
+    sideMenu.classList.remove("-translate-x-full");
+  });
+
+  closeMenu.addEventListener("click", () => {
+    sideMenu.classList.add("-translate-x-full");
+  });
+</script>
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/573013937376" 
+   class="fixed bottom-6 right-6 z-50 bg-green-500 rounded-full p-3 shadow-lg hover:bg-green-600 transition"
+   target="_blank"
+   aria-label="Chatea por WhatsApp">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-8 h-8">
+</a>
+
+<!-- Mensaje flotante con logo -->
+<div id="wa-popup" class="fixed bottom-24 right-6 bg-white rounded-lg shadow-lg p-4 w-72 z-40 text-sm text-gray-800 animate-fade-in">
+  <div class="flex justify-between items-start">
+    <div class="flex items-start gap-2">
+      <img src="logo.jpg" alt="Logo IA Technology" class="w-10 h-10 object-contain">
+      <div>
+        <p class="font-bold">Asesor de IA Technology</p>
+        <p class="text-xs text-gray-500">Disponible</p>
+      </div>
+    </div>
+    <button onclick="document.getElementById('wa-popup').style.display='none';" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+  </div>
+  <div class="mt-2">Hola, un gusto atenderte.</div>
+</div>
+
+<!-- Script para cerrar el mensaje después de 5 segundos -->
+<script>
+  setTimeout(() => {
+    const popup = document.getElementById('wa-popup');
+    if (popup) popup.style.display = 'none';
+  }, 50000);
+</script>
+
+<!-- Animación opcional (tailwind plugin necesario si quieres usar animate-fade-in) -->
+<style>
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+</style>
+</body>
+</html>

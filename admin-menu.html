@@ -152,17 +152,16 @@
 
   <!-- Firebase SDKs -->
   <script type="module">
-    // 1) Pega tu configuración aquí desde Firebase Console > Project Settings > SDK setup
     const firebaseConfig = {
-      apiKey: "TU_API_KEY",
-      authDomain: "TU_AUTH_DOMAIN",
-      projectId: "TU_PROJECT_ID",
-      storageBucket: "TU_BUCKET",
-      messagingSenderId: "TU_SENDER_ID",
-      appId: "TU_APP_ID"
+      apiKey: "AIzaSyAl1fJM_SFmKrc0gBQnAOp7VY810cCDPZQ",
+      authDomain: "iatechnology-sitio.firebaseapp.com",
+      projectId: "iatechnology-sitio",
+      storageBucket: "iatechnology-sitio.firebasestorage.app",
+      messagingSenderId: "400954344601",
+      appId: "1:400954344601:web:e81720a9b597e7a062e408",
+      measurementId: "G-S9QJ8LE7QV"
     };
 
-    // 2) Importa módulos desde CDN
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
     import { getFirestore, collection, doc, setDoc, addDoc, getDocs, onSnapshot, query, where, deleteDoc, orderBy } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
@@ -171,7 +170,6 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // UI refs
     const publicView = document.getElementById('publicView');
     const adminView  = document.getElementById('adminView');
     const btnShowPublic = document.getElementById('btnShowPublic');
@@ -180,7 +178,6 @@
     btnShowPublic.onclick = () => { publicView.classList.remove('hidden'); adminView.classList.add('hidden'); };
     btnShowAdmin.onclick  = () => { adminView.classList.remove('hidden'); publicView.classList.add('hidden'); };
 
-    // Auth UI
     const btnLogin = document.getElementById('btnLogin');
     const btnLogout = document.getElementById('btnLogout');
     const loginForm = document.getElementById('loginForm');
@@ -203,7 +200,6 @@
     };
     btnLogout.onclick = () => signOut(auth);
 
-    // Rol de admin: existe un documento en /admins/{uid}
     async function isAdmin(uid){
       const q = query(collection(db,'admins'), where('__name__','==', uid));
       const snap = await getDocs(q);
@@ -228,7 +224,6 @@
       }
     });
 
-    // ====== CATEGORÍAS ======
     const catName = document.getElementById('catName');
     const catSlug = document.getElementById('catSlug');
     const addCategory = document.getElementById('addCategory');
@@ -243,14 +238,12 @@
       catName.value = ''; catSlug.value = '';
     };
 
-    // Render categorías + select
     onSnapshot(collection(db,'menus'), (snap)=>{
       const cats = [];
       categoryList.innerHTML = '';
       snap.forEach(d=> cats.push(d.data()));
       cats.sort((a,b)=> a.name.localeCompare(b.name));
 
-      // Lista en Admin
       for(const c of cats){
         const li = document.createElement('div');
         li.className = 'item';
@@ -260,7 +253,6 @@
         del.textContent='Eliminar';
         del.onclick = async ()=>{
           if(confirm(`Eliminar categoría "${c.name}" y TODOS sus ítems?`)){
-            // Borrar subcolección items
             const itemsSnap = await getDocs(collection(db,'menus',c.slug,'items'));
             for(const idoc of itemsSnap.docs){
               await deleteDoc(idoc.ref);
@@ -272,11 +264,9 @@
         categoryList.appendChild(li);
       }
 
-      // Select para ítems
       itemCategory.innerHTML = cats.map(c=>`<option value="${c.slug}">${c.name}</option>`).join('');
     });
 
-    // ====== ÍTEMS ======
     const itemName = document.getElementById('itemName');
     const itemDesc = document.getElementById('itemDesc');
     const itemUrl  = document.getElementById('itemUrl');
@@ -294,7 +284,6 @@
     };
 
     async function listenItems(cat){
-      // Listener por categoría seleccionada para panel admin
       const qref = query(collection(db,'menus',cat,'items'), orderBy('createdAt','desc'));
       return onSnapshot(qref, (snap)=>{
         itemList.innerHTML = '';
@@ -323,87 +312,9 @@
       stopItemsListener = listenItems(itemCategory.value);
     });
 
-    // ====== RENDER MENÚ PÚBLICO ======
     const publicMenus = document.getElementById('publicMenus');
     function renderPublicCategory(cat){
       const box = document.createElement('div');
       box.className='card';
       box.innerHTML = `<div class="card-hd"><strong>${cat.name}</strong><span class="tag">/${cat.slug}</span></div><div class="card-bd"><div class="list" id="list-${cat.slug}"></div></div>`;
-      publicMenus.appendChild(box);
-
-      const lst = box.querySelector(`#list-${cat.slug}`);
-      const qref = query(collection(db,'menus',cat.slug,'items'), orderBy('createdAt','desc'));
-      onSnapshot(qref, (snap)=>{
-        lst.innerHTML = '';
-        snap.forEach(d=>{
-          const it = d.data();
-          const row = document.createElement('div');
-          row.className='item';
-          row.innerHTML = `<div><strong>${it.name}</strong><br><small>${it.desc||''}</small></div>`;
-          if(it.url){
-            const a=document.createElement('a'); a.href=it.url; a.target='_blank'; a.className='btn'; a.textContent='Ver'; row.appendChild(a);
-          }
-          lst.appendChild(row);
-        });
-      });
-    }
-
-    onSnapshot(collection(db,'menus'), (snap)=>{
-      publicMenus.innerHTML = '';
-      const cats = [];
-      snap.forEach(d=> cats.push(d.data()));
-      cats.sort((a,b)=> a.name.localeCompare(b.name));
-      cats.forEach(renderPublicCategory);
-    });
-
-  </script>
-
-  <!--
-  =====================
-  Firestore Reglas (copia en Firebase Console > Firestore > Rules)
-  =====================
-  rules_version = '2';
-  service cloud.firestore {
-    match /databases/{database}/documents {
-      function isAdmin(){
-        return request.auth != null && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
-      }
-
-      // Lista de admins: crea manualmente /admins/{uid}
-      match /admins/{uid} {
-        allow read: if request.auth != null && request.auth.uid == uid;
-        allow write: if false; // prevenir auto-edición
-      }
-
-      match /menus/{menuId} {
-        allow read: if true;
-        allow create, update, delete: if isAdmin();
-
-        match /items/{itemId} {
-          allow read: if true;
-          allow create, update, delete: if isAdmin();
-        }
-      }
-    }
-  }
-
-  =====================
-  Pasos rápidos
-  =====================
-  1) Crea un proyecto en Firebase > habilita Authentication (Email/Password) y Firestore.
-  2) En Authentication, añade los usuarios que tendrán acceso al panel.
-  3) En Firestore, crea la colección "admins" y añade un documento cuyo ID sea el UID del usuario admin (sin campos).
-  4) En Firestore > Rules, pega las reglas de arriba y publícalas.
-  5) Copia tu config de Firebase y reemplaza los valores en firebaseConfig arriba.
-  6) Sube este archivo a tu sitio (GitHub Pages) o cualquier hosting estático.
-  7) Abre la página: la pestaña “Menú” es pública; “Panel Admin” requiere login.
-
-  Estructura de datos:
-  /menus/{slug} -> { name, slug, createdAt }
-  /menus/{slug}/items/{autoId} -> { name, desc, url, createdAt }
-
-  Nota: si ya tienes secciones como "Cámaras", crea la categoría con slug camaras y añade ítems.
-  -->
-
-</body>
-</html>
+      public

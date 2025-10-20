@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IA Technology S.A.S – Menú & Admin</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0b1220; --card:#121a2b; --muted:#9fb0c8; --text:#e7eefc; --accent:#4ea1ff; --danger:#ff6b6b; --ok:#22c55e; }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
+    .grid{display:grid;gap:16px}
+    .grid-2{grid-template-columns:1fr 1fr}
+    .card{background:var(--card);border:1px solid #22304a;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+    .card-hd{padding:14px 16px;border-bottom:1px solid #22304a;display:flex;justify-content:space-between;align-items:center}
+    .card-bd{padding:16px}
+    .pill{padding:6px 10px;border-radius:999px;background:#17253a;color:var(--muted);font-size:12px}
+    .btn{appearance:none;border:1px solid #2b4266;background:#17253a;color:#dce8fb;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .btn:hover{border-color:#3b5b8f}
+    .btn.acc{background:linear-gradient(180deg,#1f3b66,#132742);border-color:#375a92}
+    .btn.ok{border-color:#1c6b3c;background:#0f2b1d}
+    .btn.danger{border-color:#7a2d2d;background:#2a1111;color:#ffdede}
+    input,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #2b4266;background:#0e1728;color:#e7eefc}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .muted{color:var(--muted)}
+    .list{display:grid;gap:10px}
+    .item{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;background:#0f192d;border:1px solid #1e2d49;border-radius:12px}
+    .item small{color:var(--muted)}
+    .tag{font-size:11px;padding:4px 8px;border-radius:999px;background:#0b203a;border:1px solid #2c4e7f;color:#bcd3f6}
+    .hidden{display:none}
+    .hr{height:1px;background:#22304a;margin:16px 0}
+  </style>
+</head>
+<body>
+  <div class="wrap grid">
+    <header class="card">
+      <div class="card-hd">
+        <div>
+          <strong>IA Technology – Menú dinámico</strong>
+          <div class="muted" style="font-size:12px">Agrega / edita categorías e ítems (por ejemplo: Cámaras) con autenticación.</div>
+        </div>
+        <div>
+          <button id="btnShowPublic" class="btn">Ver Menú Público</button>
+          <button id="btnShowAdmin" class="btn acc">Panel Admin</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MENÚ PÚBLICO -->
+    <section id="publicView" class="card">
+      <div class="card-hd">
+        <div><strong>Menú</strong> <span class="pill">Público</span></div>
+        <span class="muted" style="font-size:12px">Los datos se leen en vivo desde Firestore.</span>
+      </div>
+      <div class="card-bd grid grid-2" id="publicMenus">
+        <!-- Se rellena con JS -->
+      </div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="adminView" class="card hidden">
+      <div class="card-hd">
+        <div><strong>Panel de administración</strong> <span class="pill">Solo admins</span></div>
+        <div id="authBox">
+          <button id="btnLogin" class="btn">Iniciar sesión</button>
+          <button id="btnLogout" class="btn danger hidden">Salir</button>
+        </div>
+      </div>
+
+      <div class="card-bd">
+        <!-- Login form -->
+        <div id="loginForm" class="grid hidden" style="grid-template-columns:1fr;max-width:460px">
+          <div>
+            <label>Email</label>
+            <input id="email" type="email" placeholder="admin@iatechnology.com" />
+          </div>
+          <div>
+            <label>Contraseña</label>
+            <input id="password" type="password" placeholder="••••••••" />
+          </div>
+          <div>
+            <button id="doLogin" class="btn ok">Entrar</button>
+            <span class="muted" style="margin-left:8px">(Habilita el usuario en Firebase Auth)</span>
+          </div>
+          <div id="loginMsg" class="muted"></div>
+          <div class="hr"></div>
+        </div>
+
+        <!-- Admin content -->
+        <div id="adminContent" class="hidden">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-hd"><strong>Categorías</strong></div>
+              <div class="card-bd">
+                <div class="row">
+                  <div>
+                    <label>Nombre de categoría</label>
+                    <input id="catName" placeholder="Cámaras" />
+                  </div>
+                  <div>
+                    <label>Slug</label>
+                    <input id="catSlug" placeholder="camaras" />
+                  </div>
+                </div>
+                <div style="margin-top:10px">
+                  <button id="addCategory" class="btn ok">Agregar categoría</button>
+                </div>
+
+                <div class="hr"></div>
+                <div class="list" id="categoryList"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-hd"><strong>Ítems</strong> <span class="muted" style="font-size:12px">(e.g., modelos de cámaras)</span></div>
+              <div class="card-bd">
+                <div class="row">
+                  <div>
+                    <label>Categoría</label>
+                    <select id="itemCategory"></select>
+                  </div>
+                  <div>
+                    <label>Nombre</label>
+                    <input id="itemName" placeholder="Cámara IP PoE 5MP" />
+                  </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                  <div>
+                    <label>Descripción</label>
+                    <input id="itemDesc" placeholder="Baja iluminación, H.265, exterior" />
+                  </div>
+                  <div>
+                    <label>URL/Ficha técnica</label>
+                    <input id="itemUrl" placeholder="https://..." />
+                  </div>
+                </div>
+                <div style="margin-top:10px">
+                  <button id="addItem" class="btn ok">Agregar ítem</button>
+                </div>
+
+                <div class="hr"></div>
+                <div class="list" id="itemList"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // 1) Pega tu configuración aquí desde Firebase Console > Project Settings > SDK setup
+    const firebaseConfig = {
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_AUTH_DOMAIN",
+      projectId: "TU_PROJECT_ID",
+      storageBucket: "TU_BUCKET",
+      messagingSenderId: "TU_SENDER_ID",
+      appId: "TU_APP_ID"
+    };
+
+    // 2) Importa módulos desde CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+    import { getFirestore, collection, doc, setDoc, addDoc, getDocs, onSnapshot, query, where, deleteDoc, orderBy } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // UI refs
+    const publicView = document.getElementById('publicView');
+    const adminView  = document.getElementById('adminView');
+    const btnShowPublic = document.getElementById('btnShowPublic');
+    const btnShowAdmin  = document.getElementById('btnShowAdmin');
+
+    btnShowPublic.onclick = () => { publicView.classList.remove('hidden'); adminView.classList.add('hidden'); };
+    btnShowAdmin.onclick  = () => { adminView.classList.remove('hidden'); publicView.classList.add('hidden'); };
+
+    // Auth UI
+    const btnLogin = document.getElementById('btnLogin');
+    const btnLogout = document.getElementById('btnLogout');
+    const loginForm = document.getElementById('loginForm');
+    const adminContent = document.getElementById('adminContent');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const doLogin = document.getElementById('doLogin');
+    const loginMsg = document.getElementById('loginMsg');
+
+    btnLogin.onclick = () => loginForm.classList.toggle('hidden');
+    doLogin.onclick = async () => {
+      loginMsg.textContent = 'Ingresando...';
+      try {
+        const cred = await signInWithEmailAndPassword(auth, email.value, password.value);
+        loginMsg.textContent = `Listo: ${cred.user.email}`;
+        loginForm.classList.add('hidden');
+      } catch (e) {
+        loginMsg.textContent = 'Error: ' + e.message;
+      }
+    };
+    btnLogout.onclick = () => signOut(auth);
+
+    // Rol de admin: existe un documento en /admins/{uid}
+    async function isAdmin(uid){
+      const q = query(collection(db,'admins'), where('__name__','==', uid));
+      const snap = await getDocs(q);
+      return !snap.empty;
+    }
+
+    onAuthStateChanged(auth, async (user)=>{
+      if(user){
+        btnLogin.classList.add('hidden');
+        btnLogout.classList.remove('hidden');
+        const ok = await isAdmin(user.uid);
+        if(ok){
+          adminContent.classList.remove('hidden');
+        }else{
+          adminContent.classList.add('hidden');
+          alert('Tu usuario no tiene rol de administrador. Pide que te agreguen en la colección \'admins\'.');
+        }
+      }else{
+        btnLogin.classList.remove('hidden');
+        btnLogout.classList.add('hidden');
+        adminContent.classList.add('hidden');
+      }
+    });
+
+    // ====== CATEGORÍAS ======
+    const catName = document.getElementById('catName');
+    const catSlug = document.getElementById('catSlug');
+    const addCategory = document.getElementById('addCategory');
+    const categoryList = document.getElementById('categoryList');
+    const itemCategory = document.getElementById('itemCategory');
+
+    addCategory.onclick = async ()=>{
+      const name = catName.value.trim();
+      const slug = catSlug.value.trim();
+      if(!name || !slug){ return alert('Completa nombre y slug'); }
+      await setDoc(doc(db, 'menus', slug), { name, slug, createdAt: Date.now() });
+      catName.value = ''; catSlug.value = '';
+    };
+
+    // Render categorías + select
+    onSnapshot(collection(db,'menus'), (snap)=>{
+      const cats = [];
+      categoryList.innerHTML = '';
+      snap.forEach(d=> cats.push(d.data()));
+      cats.sort((a,b)=> a.name.localeCompare(b.name));
+
+      // Lista en Admin
+      for(const c of cats){
+        const li = document.createElement('div');
+        li.className = 'item';
+        li.innerHTML = `<div><strong>${c.name}</strong> <span class="tag">/${c.slug}</span></div>`;
+        const del = document.createElement('button');
+        del.className='btn danger';
+        del.textContent='Eliminar';
+        del.onclick = async ()=>{
+          if(confirm(`Eliminar categoría "${c.name}" y TODOS sus ítems?`)){
+            // Borrar subcolección items
+            const itemsSnap = await getDocs(collection(db,'menus',c.slug,'items'));
+            for(const idoc of itemsSnap.docs){
+              await deleteDoc(idoc.ref);
+            }
+            await deleteDoc(doc(db,'menus',c.slug));
+          }
+        };
+        li.appendChild(del);
+        categoryList.appendChild(li);
+      }
+
+      // Select para ítems
+      itemCategory.innerHTML = cats.map(c=>`<option value="${c.slug}">${c.name}</option>`).join('');
+    });
+
+    // ====== ÍTEMS ======
+    const itemName = document.getElementById('itemName');
+    const itemDesc = document.getElementById('itemDesc');
+    const itemUrl  = document.getElementById('itemUrl');
+    const addItem  = document.getElementById('addItem');
+    const itemList = document.getElementById('itemList');
+
+    addItem.onclick = async ()=>{
+      const cat = itemCategory.value;
+      const name = itemName.value.trim();
+      const desc = itemDesc.value.trim();
+      const url  = itemUrl.value.trim();
+      if(!cat || !name) return alert('Selecciona categoría y nombre');
+      await addDoc(collection(db,'menus',cat,'items'), { name, desc, url, createdAt: Date.now() });
+      itemName.value = ''; itemDesc.value = ''; itemUrl.value='';
+    };
+
+    async function listenItems(cat){
+      // Listener por categoría seleccionada para panel admin
+      const qref = query(collection(db,'menus',cat,'items'), orderBy('createdAt','desc'));
+      return onSnapshot(qref, (snap)=>{
+        itemList.innerHTML = '';
+        snap.forEach(d=>{
+          const it = d.data();
+          const row = document.createElement('div');
+          row.className = 'item';
+          row.innerHTML = `<div><strong>${it.name}</strong><br><small>${it.desc||''}</small></div>`;
+          const right = document.createElement('div');
+          right.style.display='flex';right.style.gap='8px';
+          if(it.url){
+            const a=document.createElement('a'); a.href=it.url; a.target='_blank'; a.className='btn'; a.textContent='Ver'; right.appendChild(a);
+          }
+          const del = document.createElement('button'); del.className='btn danger'; del.textContent='Quitar';
+          del.onclick = ()=> deleteDoc(doc(db,'menus',cat,'items', d.id));
+          right.appendChild(del);
+          row.appendChild(right);
+          itemList.appendChild(row);
+        });
+      });
+    }
+
+    let stopItemsListener = null;
+    itemCategory.addEventListener('change', ()=>{
+      if(stopItemsListener) stopItemsListener();
+      stopItemsListener = listenItems(itemCategory.value);
+    });
+
+    // ====== RENDER MENÚ PÚBLICO ======
+    const publicMenus = document.getElementById('publicMenus');
+    function renderPublicCategory(cat){
+      const box = document.createElement('div');
+      box.className='card';
+      box.innerHTML = `<div class="card-hd"><strong>${cat.name}</strong><span class="tag">/${cat.slug}</span></div><div class="card-bd"><div class="list" id="list-${cat.slug}"></div></div>`;
+      publicMenus.appendChild(box);
+
+      const lst = box.querySelector(`#list-${cat.slug}`);
+      const qref = query(collection(db,'menus',cat.slug,'items'), orderBy('createdAt','desc'));
+      onSnapshot(qref, (snap)=>{
+        lst.innerHTML = '';
+        snap.forEach(d=>{
+          const it = d.data();
+          const row = document.createElement('div');
+          row.className='item';
+          row.innerHTML = `<div><strong>${it.name}</strong><br><small>${it.desc||''}</small></div>`;
+          if(it.url){
+            const a=document.createElement('a'); a.href=it.url; a.target='_blank'; a.className='btn'; a.textContent='Ver'; row.appendChild(a);
+          }
+          lst.appendChild(row);
+        });
+      });
+    }
+
+    onSnapshot(collection(db,'menus'), (snap)=>{
+      publicMenus.innerHTML = '';
+      const cats = [];
+      snap.forEach(d=> cats.push(d.data()));
+      cats.sort((a,b)=> a.name.localeCompare(b.name));
+      cats.forEach(renderPublicCategory);
+    });
+
+  </script>
+
+  <!--
+  =====================
+  Firestore Reglas (copia en Firebase Console > Firestore > Rules)
+  =====================
+  rules_version = '2';
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      function isAdmin(){
+        return request.auth != null && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      }
+
+      // Lista de admins: crea manualmente /admins/{uid}
+      match /admins/{uid} {
+        allow read: if request.auth != null && request.auth.uid == uid;
+        allow write: if false; // prevenir auto-edición
+      }
+
+      match /menus/{menuId} {
+        allow read: if true;
+        allow create, update, delete: if isAdmin();
+
+        match /items/{itemId} {
+          allow read: if true;
+          allow create, update, delete: if isAdmin();
+        }
+      }
+    }
+  }
+
+  =====================
+  Pasos rápidos
+  =====================
+  1) Crea un proyecto en Firebase > habilita Authentication (Email/Password) y Firestore.
+  2) En Authentication, añade los usuarios que tendrán acceso al panel.
+  3) En Firestore, crea la colección "admins" y añade un documento cuyo ID sea el UID del usuario admin (sin campos).
+  4) En Firestore > Rules, pega las reglas de arriba y publícalas.
+  5) Copia tu config de Firebase y reemplaza los valores en firebaseConfig arriba.
+  6) Sube este archivo a tu sitio (GitHub Pages) o cualquier hosting estático.
+  7) Abre la página: la pestaña “Menú” es pública; “Panel Admin” requiere login.
+
+  Estructura de datos:
+  /menus/{slug} -> { name, slug, createdAt }
+  /menus/{slug}/items/{autoId} -> { name, desc, url, createdAt }
+
+  Nota: si ya tienes secciones como "Cámaras", crea la categoría con slug camaras y añade ítems.
+  -->
+
+</body>
+</html>
